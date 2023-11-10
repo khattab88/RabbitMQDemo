@@ -19,7 +19,7 @@ channel.QueueDeclare(queueName, durable: false, exclusive: false, autoDelete: fa
 channel.QueueBind(queueName, exchangeName, routingKey, null);
 
 // send message
-byte[] messageBodyBytes = Encoding.UTF8.GetBytes("Hello RabbitMQ");
+byte[] messageBodyBytes = Encoding.UTF8.GetBytes("Hello RabbitMQ Again");
 channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
 
 channel.Close();

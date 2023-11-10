@@ -24,6 +24,8 @@ channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (sender, args) =>
 {
+    Task.Delay(TimeSpan.FromSeconds(3)).Wait();
+
     var bodyBytes = args.Body.ToArray();
 
     string message = Encoding.UTF8.GetString(bodyBytes);
