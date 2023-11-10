@@ -11,13 +11,8 @@ IConnection conn = connectionFactory.CreateConnection();
 IModel channel = conn.CreateModel();
 
 // configure exchange, queue, binding
-string exchangeName = "DemoExchange";
-string routingKey = "demo-routing-key";
 string queueName = "DemoQueue";
-
-channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
 channel.QueueDeclare(queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
-channel.QueueBind(queueName, exchangeName, routingKey, null);
 channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 
 // configure receiver/consumer
