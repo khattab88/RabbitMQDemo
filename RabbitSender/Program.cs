@@ -18,9 +18,19 @@ channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
 channel.QueueDeclare(queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 channel.QueueBind(queueName, exchangeName, routingKey, null);
 
-// send message
-byte[] messageBodyBytes = Encoding.UTF8.GetBytes("Hello RabbitMQ Again");
-channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+// publish single message
+// byte[] messageBodyBytes = Encoding.UTF8.GetBytes("Hello RabbitMQ Again");
+// channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+
+for (int i = 1; i <= 60; i++)
+{
+    Console.WriteLine($"sending message {i}");
+
+    byte[] messageBodyBytes = Encoding.UTF8.GetBytes($"messsage #{i}");
+    channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+
+    Thread.Sleep(1000);
+}
 
 channel.Close();
 conn.Close();

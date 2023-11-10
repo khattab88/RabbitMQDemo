@@ -5,7 +5,7 @@ using System.Text;
 // configure connection
 ConnectionFactory connectionFactory = new();
 connectionFactory.Uri = new Uri("amqp://guest:guest@localhost:5672");
-connectionFactory.ClientProvidedName = "Rabbit Receiver One App";
+connectionFactory.ClientProvidedName = "Rabbit Receiver Two App";
 
 IConnection conn = connectionFactory.CreateConnection();
 IModel channel = conn.CreateModel();
@@ -24,7 +24,7 @@ channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (sender, args) =>
 {
-    Task.Delay(TimeSpan.FromSeconds(5)).Wait();
+    Task.Delay(TimeSpan.FromSeconds(3)).Wait();
 
     var bodyBytes = args.Body.ToArray();
 
